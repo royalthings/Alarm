@@ -24,7 +24,9 @@ class ViewController: UIViewController {
       super.viewDidLoad()
       
       stopButton.isHidden = true
-      playMusic()
+      //playMusic()
+      
+      playSound(resource: "3136.wav")
       
       startTimer()
 
@@ -41,23 +43,38 @@ class ViewController: UIViewController {
       print(currentTime)
       
       
-      if currentTime == "10:00:00 AM" || currentTime == "11:00:00 AM" || currentTime == "12:00:00 AM" {
+      if currentTime == "10:00:00 AM" || currentTime == "11:19:00 AM" || currentTime == "12:00:00 AM" {
          audioPlayer?.volume = 1
          stopButton.isHidden = false
       }
    }
    
-   func playMusic() {
+   
+   func playSound(resource: String) {
+      let path = Bundle.main.path(forResource: resource, ofType: nil)!
+      let url = URL(fileURLWithPath: path)
       
-      let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "3136", ofType: "wav")!)
-      try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
-      try! AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-      try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
-      audioPlayer?.volume = 0
-      audioPlayer?.numberOfLoops = 1000000000000000
-      audioPlayer?.prepareToPlay()
-      audioPlayer?.play()
+      do {
+         audioPlayer = try AVAudioPlayer(contentsOf: url)
+         audioPlayer?.volume = 0
+         audioPlayer?.numberOfLoops = -1
+         audioPlayer?.prepareToPlay()
+         audioPlayer?.play()
+      } catch {
+         // couldn't load file :(
+      }
    }
+
+//   func playMusic() {
+//      let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "3136", ofType: "wav")!)
+//      try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
+//      try! AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
+//      try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
+//      audioPlayer?.volume = 0
+//      audioPlayer?.numberOfLoops = -1
+//      audioPlayer?.prepareToPlay()
+//      audioPlayer?.play()
+//   }
    
    @IBAction func stopAction(_ sender: Any) {
       audioPlayer?.volume = 0
