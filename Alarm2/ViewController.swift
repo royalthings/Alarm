@@ -10,50 +10,58 @@ import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-   
-   var timer: Timer?
+
    @IBOutlet weak var stopButton: UIButton!
    
-   var releaseDate: Date?
-   var countdownTimer = Timer()
-   
+   let nowDate = Date()
    var soundEnable = true
    var audioPlayer: AVAudioPlayer?
+   var timeInterval: TimeInterval?
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       stopButton.isHidden = true
-      //playMusic()
-      
       playSound(resource: "3136.wav")
       
-      startTimer()
-
+      startTimer(alarmTime(hour: 16, minute: 21, second: 0))
+      startTimer(alarmTime(hour: 16, minute: 22, second: 0))
+      startTimer(alarmTime(hour: 16, minute: 23, second: 0))
    }
    
-   func startTimer() {
-      timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+   //MARK: - restart audioPlayer
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
       
+      audioPlayer?.stop()
+      audioPlayer?.play()
    }
    
-   @objc func updateTime() {
+   //MARK: - delay time calculation
+   func alarmTime(hour: Int, minute: Int, second: Int) -> TimeInterval {
+      let calendar = Calendar.current
+      let components = DateComponents(calendar: calendar, hour: hour, minute: minute, second: second)
+      let nextTime = calendar.nextDate(after: nowDate, matching: components, matchingPolicy: .nextTime)!
+      //let releaseDate = DateFormatter.localizedString(from: nextTime, dateStyle: .short, timeStyle: .medium)
+      timeInterval = nextTime.timeIntervalSinceNow
+      return timeInterval!
+   }
+   
+   //MARK: - audioPlayer volume = 1 after delay
+   func startTimer(_ alarmTime: TimeInterval) {
       
-      let currentTime = DateFormatter.localizedString(from: Date(), dateStyle: .none, timeStyle: .medium)
-      print(currentTime)
-      
-      
-      if currentTime == "10:00:00 AM" || currentTime == "11:19:00 AM" || currentTime == "12:00:00 AM" {
-         audioPlayer?.volume = 1
-         stopButton.isHidden = false
+      DispatchQueue.main.asyncAfter(deadline: .now() + alarmTime) {
+         self.audioPlayer?.volume = 1
+         self.stopButton.isHidden = false
       }
    }
-   
-   
+
+   //MARK: - play sound
    func playSound(resource: String) {
       let path = Bundle.main.path(forResource: resource, ofType: nil)!
       let url = URL(fileURLWithPath: path)
-      
+      //try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
+      //try! AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
       do {
          audioPlayer = try AVAudioPlayer(contentsOf: url)
          audioPlayer?.volume = 0
@@ -61,21 +69,11 @@ class ViewController: UIViewController {
          audioPlayer?.prepareToPlay()
          audioPlayer?.play()
       } catch {
-         // couldn't load file :(
+         print("couldn't load file")
       }
    }
-
-//   func playMusic() {
-//      let alertSound = URL(fileURLWithPath: Bundle.main.path(forResource: "3136", ofType: "wav")!)
-//      try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
-//      try! AVAudioSession.sharedInstance().setActive(true, options: .notifyOthersOnDeactivation)
-//      try! audioPlayer = AVAudioPlayer(contentsOf: alertSound)
-//      audioPlayer?.volume = 0
-//      audioPlayer?.numberOfLoops = -1
-//      audioPlayer?.prepareToPlay()
-//      audioPlayer?.play()
-//   }
    
+   //MARK: - Actions
    @IBAction func stopAction(_ sender: Any) {
       audioPlayer?.volume = 0
       stopButton.isHidden = true
