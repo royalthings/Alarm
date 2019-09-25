@@ -12,8 +12,8 @@ import AVFoundation
 class ViewController: UIViewController {
 
    @IBOutlet weak var stopButton: UIButton!
-   
-   let nowDate = Date()
+
+   var timer = Timer()
    var soundEnable = true
    var audioPlayer: AVAudioPlayer?
    var timeInterval: TimeInterval?
@@ -23,10 +23,9 @@ class ViewController: UIViewController {
       
       stopButton.isHidden = true
       playSound(resource: "3136.wav")
+  
+      startTimer(alarmTime(hour: 9, minute: 35, second: 0))
       
-      startTimer(alarmTime(hour: 16, minute: 21, second: 0))
-      startTimer(alarmTime(hour: 16, minute: 22, second: 0))
-      startTimer(alarmTime(hour: 16, minute: 23, second: 0))
    }
    
    //MARK: - restart audioPlayer
@@ -39,20 +38,51 @@ class ViewController: UIViewController {
    
    //MARK: - delay time calculation
    func alarmTime(hour: Int, minute: Int, second: Int) -> TimeInterval {
+      let nowDate = Date()
       let calendar = Calendar.current
       let components = DateComponents(calendar: calendar, hour: hour, minute: minute, second: second)
       let nextTime = calendar.nextDate(after: nowDate, matching: components, matchingPolicy: .nextTime)!
       //let releaseDate = DateFormatter.localizedString(from: nextTime, dateStyle: .short, timeStyle: .medium)
+      //print(releaseDate)
       timeInterval = nextTime.timeIntervalSinceNow
       return timeInterval!
    }
    
    //MARK: - audioPlayer volume = 1 after delay
    func startTimer(_ alarmTime: TimeInterval) {
-      
-      DispatchQueue.main.asyncAfter(deadline: .now() + alarmTime) {
+      timer.invalidate()
+      timer = Timer.scheduledTimer(withTimeInterval: alarmTime, repeats: true, block: { [unowned self] _ in
          self.audioPlayer?.volume = 1
          self.stopButton.isHidden = false
+         self.recalculeteTime()
+      })
+   }
+   
+   func recalculeteTime()  {
+      
+      let date = Date()
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "HH:mm:ss"
+      let now = dateFormatter.string(from: date)
+      let calendar = Calendar.current
+      if now == "09:35:00" {
+         let components = DateComponents(calendar: calendar, hour: 9, minute: 36, second: 0)
+         let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
+         timeInterval = nextTime.timeIntervalSinceNow
+         startTimer(timeInterval!)
+      }
+      if now == "09:36:00" {
+         let components = DateComponents(calendar: calendar, hour: 9, minute: 37, second: 0)
+         let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
+         timeInterval = nextTime.timeIntervalSinceNow
+         startTimer(timeInterval!)
+      }
+      if now == "09:37:00" {
+         let components = DateComponents(calendar: calendar, hour: 9, minute: 35, second: 0)
+         let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
+         timeInterval = nextTime.timeIntervalSinceNow
+         print(timeInterval!)
+         startTimer(timeInterval!)
       }
    }
 
