@@ -24,8 +24,7 @@ class ViewController: UIViewController {
       stopButton.isHidden = true
       playSound(resource: "3136.wav")
   
-      startTimer(alarmTime(hour: 9, minute: 35, second: 0))
-      
+      startTimer(alarmTime(hour: 10, minute: 0, second: 0))
    }
    
    //MARK: - restart audioPlayer
@@ -45,6 +44,7 @@ class ViewController: UIViewController {
       //let releaseDate = DateFormatter.localizedString(from: nextTime, dateStyle: .short, timeStyle: .medium)
       //print(releaseDate)
       timeInterval = nextTime.timeIntervalSinceNow
+      //print(timeInterval!)
       return timeInterval!
    }
    
@@ -65,23 +65,25 @@ class ViewController: UIViewController {
       dateFormatter.dateFormat = "HH:mm:ss"
       let now = dateFormatter.string(from: date)
       let calendar = Calendar.current
-      if now == "09:35:00" {
-         let components = DateComponents(calendar: calendar, hour: 9, minute: 36, second: 0)
+      if now == "10:00:00" {
+         let components = DateComponents(calendar: calendar, hour: 11, minute: 0, second: 0)
          let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
          timeInterval = nextTime.timeIntervalSinceNow
+         //print(timeInterval!)
          startTimer(timeInterval!)
       }
-      if now == "09:36:00" {
-         let components = DateComponents(calendar: calendar, hour: 9, minute: 37, second: 0)
+      if now == "11:00:00" {
+         let components = DateComponents(calendar: calendar, hour: 12, minute: 0, second: 0)
          let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
          timeInterval = nextTime.timeIntervalSinceNow
+         //print(timeInterval!)
          startTimer(timeInterval!)
       }
-      if now == "09:37:00" {
-         let components = DateComponents(calendar: calendar, hour: 9, minute: 35, second: 0)
+      if now == "12:00:00" {
+         let components = DateComponents(calendar: calendar, hour: 10, minute: 0, second: 0)
          let nextTime = calendar.nextDate(after: date, matching: components, matchingPolicy: .nextTime)!
          timeInterval = nextTime.timeIntervalSinceNow
-         print(timeInterval!)
+         //print(timeInterval!)
          startTimer(timeInterval!)
       }
    }
