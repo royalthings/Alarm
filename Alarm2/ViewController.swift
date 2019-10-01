@@ -1,29 +1,21 @@
-//
-//  ViewController.swift
-//  Alarm2
-//
-//  Created by Дмитрий Ага on 9/22/19.
-//  Copyright © 2019 Дмитрий Ага. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 
 class ViewController: UIViewController {
-
+   
    @IBOutlet weak var stopButton: UIButton!
-
-   var timer = Timer()
-   var soundEnable = true
-   var audioPlayer: AVAudioPlayer?
-   var timeInterval: TimeInterval?
+   
+   fileprivate var timer = Timer()
+   fileprivate var soundEnable = true
+   fileprivate var audioPlayer: AVAudioPlayer?
+   fileprivate var timeInterval: TimeInterval?
    
    override func viewDidLoad() {
       super.viewDidLoad()
       
       stopButton.isHidden = true
       playSound(resource: "3136.wav")
-  
+      
       startTimer(alarmTime(hour: 10, minute: 0, second: 0))
    }
    
@@ -36,7 +28,7 @@ class ViewController: UIViewController {
    }
    
    //MARK: - delay time calculation
-   func alarmTime(hour: Int, minute: Int, second: Int) -> TimeInterval {
+   fileprivate func alarmTime(hour: Int, minute: Int, second: Int) -> TimeInterval {
       let nowDate = Date()
       let calendar = Calendar.current
       let components = DateComponents(calendar: calendar, hour: hour, minute: minute, second: second)
@@ -49,7 +41,7 @@ class ViewController: UIViewController {
    }
    
    //MARK: - audioPlayer volume = 1 after delay
-   func startTimer(_ alarmTime: TimeInterval) {
+   fileprivate func startTimer(_ alarmTime: TimeInterval) {
       timer.invalidate()
       timer = Timer.scheduledTimer(withTimeInterval: alarmTime, repeats: true, block: { [unowned self] _ in
          self.audioPlayer?.volume = 1
@@ -58,8 +50,7 @@ class ViewController: UIViewController {
       })
    }
    
-   func recalculeteTime()  {
-      
+   fileprivate func recalculeteTime()  {
       let date = Date()
       let dateFormatter = DateFormatter()
       dateFormatter.dateFormat = "HH:mm:ss"
@@ -87,9 +78,9 @@ class ViewController: UIViewController {
          startTimer(timeInterval!)
       }
    }
-
+   
    //MARK: - play sound
-   func playSound(resource: String) {
+   fileprivate func playSound(resource: String) {
       let path = Bundle.main.path(forResource: resource, ofType: nil)!
       let url = URL(fileURLWithPath: path)
       //try! AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: .default, options: .defaultToSpeaker)
@@ -111,4 +102,3 @@ class ViewController: UIViewController {
       stopButton.isHidden = true
    }
 }
-
