@@ -12,7 +12,7 @@
 		6EC87C3C2336FC8300394508 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EC87C3A2336FC8300394508 /* Main.storyboard */; };
 		6EC87C3E2336FC9000394508 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EC87C3D2336FC9000394508 /* Assets.xcassets */; };
 		6EC87C412336FC9000394508 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EC87C3F2336FC9000394508 /* LaunchScreen.storyboard */; };
-		6EC87C4B233705BA00394508 /* 3136.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6EC87C4A233705BA00394508 /* 3136.wav */; };
+		6EC87C4B233705BA00394508 /* Audio.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6EC87C4A233705BA00394508 /* Audio.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +23,7 @@
 		6EC87C3D2336FC9000394508 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EC87C402336FC9000394508 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6EC87C422336FC9000394508 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6EC87C4A233705BA00394508 /* 3136.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 3136.wav; sourceTree = "<group>"; };
+		6EC87C4A233705BA00394508 /* Audio.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Audio.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +50,7 @@
 			isa = PBXGroup;
 			children = (
 				6EC87C3D2336FC9000394508 /* Assets.xcassets */,
-				6EC87C4A233705BA00394508 /* 3136.wav */,
+				6EC87C4A233705BA00394508 /* Audio.wav */,
 				6EC87C422336FC9000394508 /* Info.plist */,
 			);
 			name = Other;
@@ -154,7 +154,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6EC87C4B233705BA00394508 /* 3136.wav in Resources */,
+				6EC87C4B233705BA00394508 /* Audio.wav in Resources */,
 				6EC87C412336FC9000394508 /* LaunchScreen.storyboard in Resources */,
 				6EC87C3E2336FC9000394508 /* Assets.xcassets in Resources */,
 				6EC87C3C2336FC8300394508 /* Main.storyboard in Resources */,
@@ -318,6 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3HN8YB79D;
 				INFOPLIST_FILE = Alarm2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -336,6 +337,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K3HN8YB79D;
 				INFOPLIST_FILE = Alarm2/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
