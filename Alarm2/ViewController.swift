@@ -4,12 +4,16 @@ import AVFoundation
 class ViewController: UIViewController {
    
    @IBOutlet weak var stopButton: UIButton!
+   @IBOutlet weak var timeLeftLabel: UILabel!
+   @IBOutlet weak var onOffLabel: UILabel!
    
    fileprivate var timer = Timer()
    fileprivate var soundEnable = false
    fileprivate var audioPlayer: AVAudioPlayer?
    fileprivate var timeInterval: TimeInterval?
    fileprivate var resource = "Audio.wav"
+   
+   var timerr = Timer()
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -19,43 +23,55 @@ class ViewController: UIViewController {
       DispatchQueue.main.async {
          self.playSound(resource: self.resource)
       }
-      
+
       startTimer(alarmTime(hour: 10, minute: 0, second: 0))
       
-      //let notificationCenter = NotificationCenter.default
-      //notificationCenter.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: nil)
+//      timerr = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+      
+      let notificationCenter = NotificationCenter.default
+      notificationCenter.addObserver(self, selector: #selector(handleInterruption), name: AVAudioSession.interruptionNotification, object: nil)
+ 
    }
    
-//   @objc func handleInterruption(notification: Notification) {
-//       guard let userInfo = notification.userInfo,
-//           let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
-//           let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
-//               return
-//       }
-//
-//       if type == .began {
-//           print("Interruption began")
-//           // Interruption began, take appropriate actions
-//       }
-//       else if type == .ended {
-//           if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
-//               let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
-//               if options.contains(.shouldResume) {
-//                   // Interruption Ended - playback should resume
-//                   print("Interruption Ended - playback should resume")
-//                   playSound(resource: resource)
-//               } else {
-//                   // Interruption Ended - playback should NOT resume
-//                   print("Interruption Ended - playback should NOT resume")
-//               }
-//           }
-//       }
+//   @objc func updateTime() {
+//      if Double(timeInterval!) != 0 {
+//         timeInterval! -= 1
+//         timeLeftLabel.text = String(timeInterval!)
+//      } else {
+//         timerr.invalidate()
+//      }
 //   }
+   
+   @objc func handleInterruption(notification: Notification) {
+      guard let userInfo = notification.userInfo,
+         let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+         let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+            return
+      }
+      
+      if type == .began {
+         print("Interruption began")
+         // Interruption began, take appropriate actions
+      }
+      else if type == .ended {
+         if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume) {
+               // Interruption Ended - playback should resume
+               print("Interruption Ended - playback should resume")
+               audioPlayer?.play()
+            } else {
+               // Interruption Ended - playback should NOT resume
+               print("Interruption Ended - playback should NOT resume")
+            }
+         }
+      }
+   }
    
    //MARK: - Restart audioPlayer
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
-      audioPlayer?.stop()
+      //audioPlayer?.stop()
       audioPlayer?.play()
    }
    
@@ -72,7 +88,7 @@ class ViewController: UIViewController {
    //MARK: - AudioPlayer volume = 1 after delay
    fileprivate func startTimer(_ alarmTime: TimeInterval) {
       timer.invalidate()
-      timer = Timer.scheduledTimer(withTimeInterval: alarmTime, repeats: true, block: { _ in
+      timer = Timer.scheduledTimer(withTimeInterval: alarmTime, repeats: false, block: { _ in
          self.audioPlayer?.currentTime = 0
          self.audioPlayer?.volume = 1
          self.stopButton.isHidden = false
@@ -121,6 +137,14 @@ class ViewController: UIViewController {
       } catch {
          print("couldn't load file")
       }
+//      guard let play = self.audioPlayer else {
+//         return
+//      }
+//      if !play.isEqual(nil) && play.isPlaying {
+//         self.onOffLabel.text = "Player is ON"
+//      } else {
+//         self.onOffLabel.text = "Player is OFF"
+//      }
    }
    
    //MARK: - Actions
@@ -132,8 +156,7 @@ class ViewController: UIViewController {
 
 //MARK: - AudioPlayer Delegate
 extension ViewController: AVAudioPlayerDelegate {
-   
-   func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
-      playSound(resource: resource)
-   }
+   //   func audioPlayerEndInterruption(_ player: AVAudioPlayer, withOptions flags: Int) {
+   //      playSound(resource: resource)
+   //   }
 }

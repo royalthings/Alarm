@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hyA-iZ-z2b">
-                                <rect key="frame" x="156" y="313" width="63" height="41"/>
+                                <rect key="frame" x="156" y="293" width="63" height="41"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <state key="normal" title="STOP"/>
                                 <connections>
@@ -27,13 +25,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALARM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpu-Ap-g7C">
-                                <rect key="frame" x="142" y="118" width="91" height="33"/>
+                                <rect key="frame" x="142" y="98" width="91" height="33"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="will fire everyday at 10 am, 11 am, 12 pm." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="coW-DG-qPh">
-                                <rect key="frame" x="16" y="172" width="342.5" height="61"/>
+                                <rect key="frame" x="16" y="152" width="343" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="wwq-k1-Pe8"/>
                                 </constraints>
@@ -41,21 +39,53 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time in second" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqt-Zi-Mw7">
+                                <rect key="frame" x="16" y="625" width="167" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="167" id="Aia-fp-dhm"/>
+                                    <constraint firstAttribute="height" constant="21" id="IHv-Aj-adB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON/OFF" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEM-ZD-GBq">
+                                <rect key="frame" x="192" y="625" width="167" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="C9n-1g-jGq"/>
+                                    <constraint firstAttribute="width" constant="167" id="yHU-h7-eO1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="coW-DG-qPh" firstAttribute="top" secondItem="hpu-Ap-g7C" secondAttribute="bottom" constant="21" id="39l-bM-6a7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AEM-ZD-GBq" secondAttribute="bottom" constant="21" id="4RZ-Pd-TSj"/>
                             <constraint firstItem="hpu-Ap-g7C" firstAttribute="centerX" secondItem="hyA-iZ-z2b" secondAttribute="centerX" id="FJ2-rX-CXI"/>
                             <constraint firstItem="coW-DG-qPh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="G6S-1B-P27"/>
                             <constraint firstItem="hpu-Ap-g7C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HFY-iG-9TW"/>
                             <constraint firstItem="hpu-Ap-g7C" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="98" id="KwN-hc-kTg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AEM-ZD-GBq" secondAttribute="trailing" constant="16" id="QLg-R8-Wxr"/>
                             <constraint firstItem="hyA-iZ-z2b" firstAttribute="top" secondItem="coW-DG-qPh" secondAttribute="bottom" constant="80" id="VDW-W0-Wuh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Yqt-Zi-Mw7" secondAttribute="bottom" constant="21" id="gBi-A4-Zmv"/>
+                            <constraint firstItem="Yqt-Zi-Mw7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sIm-et-h3F"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="coW-DG-qPh" secondAttribute="trailing" symbolic="YES" id="sbX-13-jVC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Yqt-Zi-Mw7"/>
+                                <exclude reference="AEM-ZD-GBq"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="onOffLabel" destination="AEM-ZD-GBq" id="Ldq-O6-F95"/>
                         <outlet property="stopButton" destination="hyA-iZ-z2b" id="nRT-kD-1BA"/>
+                        <outlet property="timeLeftLabel" destination="Yqt-Zi-Mw7" id="fGv-bU-HiC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
